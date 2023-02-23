@@ -2,7 +2,7 @@ package config
 
 import "fmt"
 
-type AppConfig struct {
+type GlobalConfig struct {
     Mode         string `yaml:"mode"`
     Port         int    `yaml:"port"`
     *LogConfig   `yaml:"log"`
@@ -10,8 +10,8 @@ type AppConfig struct {
     *RedisConfig `yaml:"redis"`
 }
 
-func (app *AppConfig) String() string {
-    return fmt.Sprintf("App Config Mode:%q, Port:%d", app.Mode, app.Port)
+func (globalConfig *GlobalConfig) String() string {
+    return fmt.Sprintf("App Config Mode:%q, Port:%d", globalConfig.Mode, globalConfig.Port)
 }
 
 type MySQLConfig struct {

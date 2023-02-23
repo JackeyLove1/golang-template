@@ -1,9 +1,11 @@
-package settings
+package config
 
-import "testing"
+import (
+    "testing"
+)
 
 func TestLoadAppConfig(t *testing.T) {
-    app, err := LoadAppConfig(DefaultConfigFilePath)
+    app, err := LoadAppConfig()
     if err != nil {
         t.Errorf("LoadAppConfig Error:%v", err)
     }

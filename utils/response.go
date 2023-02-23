@@ -1,7 +1,7 @@
-package controller
+package utils
 
 import (
-    "net/controller"
+    "net/http"
 
     "github.com/gin-gonic/gin"
 )
@@ -18,7 +18,7 @@ func ResponseError(ctx *gin.Context, c ResponseCode) {
         Message: c.Msg(),
         Data:    nil,
     }
-    ctx.JSON(controller.StatusOK, rd)
+    ctx.JSON(http.StatusOK, rd)
 }
 
 func ResponseErrorWithMsg(ctx *gin.Context, code ResponseCode, errMsg string) {
@@ -27,7 +27,7 @@ func ResponseErrorWithMsg(ctx *gin.Context, code ResponseCode, errMsg string) {
         Message: errMsg,
         Data:    nil,
     }
-    ctx.JSON(controller.StatusOK, rd)
+    ctx.JSON(http.StatusOK, rd)
 }
 
 func ResponseSuccess(ctx *gin.Context, data interface{}) {
@@ -36,5 +36,5 @@ func ResponseSuccess(ctx *gin.Context, data interface{}) {
         Message: CodeSuccess.Msg(),
         Data:    data,
     }
-    ctx.JSON(controller.StatusOK, rd)
+    ctx.JSON(http.StatusOK, rd)
 }
