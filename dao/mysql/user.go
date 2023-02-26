@@ -5,7 +5,6 @@ import (
 
     "github.com/spaolacci/murmur3"
     "golang-template/models"
-    "golang-template/pkg/snowflake"
 )
 
 const seed = 20200706
@@ -21,7 +20,7 @@ func (d *DB) Register(user *models.User) error {
     // TODO
     // 检查用户是否存在
     // 生成user_id
-    _, err := snowflake.GetID()
+    _, err := d.snowFlake.NextID()
     if err != nil {
         return ErrorGenIDFailed
     }

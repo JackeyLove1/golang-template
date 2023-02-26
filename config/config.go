@@ -3,11 +3,12 @@ package config
 import "fmt"
 
 type GlobalConfig struct {
-    Mode         string `yaml:"mode"`
-    Port         int    `yaml:"port"`
-    *LogConfig   `yaml:"log"`
-    *MySQLConfig `yaml:"mysql"`
-    *RedisConfig `yaml:"redis"`
+    Mode          string `yaml:"mode"`
+    Port          int    `yaml:"port"`
+    *LogConfig    `yaml:"log"`
+    *MySQLConfig  `yaml:"mysql"`
+    *RedisConfig  `yaml:"redis"`
+    *SQLiteConfig `yaml:"sqlite"`
 }
 
 func (globalConfig *GlobalConfig) String() string {
@@ -22,6 +23,7 @@ type MySQLConfig struct {
     Port         int    `yaml:"port"`
     MaxOpenConns int    `yaml:"max_open_conns"`
     MaxIdleConns int    `yaml:"max_idle_conns"`
+    Open         int    `yaml:"open"`
 }
 
 type RedisConfig struct {
@@ -31,6 +33,7 @@ type RedisConfig struct {
     DB           int    `yaml:"db"`
     PoolSize     int    `yaml:"pool_size"`
     MinIdleConns int    `yaml:"min_idle_conns"`
+    Open         int    `yaml:"open"`
 }
 
 type LogConfig struct {
@@ -39,4 +42,12 @@ type LogConfig struct {
     MaxSize    int    `yaml:"max_size"`
     MaxAge     int    `yaml:"max_age"`
     MaxBackups int    `yaml:"max_backups"`
+    Open       int    `yaml:"open"`
+}
+
+type SQLiteConfig struct {
+    DB           string `yaml:"db"`
+    Open         int    `yaml:"open"`
+    MaxOpenConns int    `yaml:"max_open_conns"`
+    MaxIdleConns int    `yaml:"max_idle_conns"`
 }

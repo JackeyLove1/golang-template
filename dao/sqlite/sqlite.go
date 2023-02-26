@@ -1,4 +1,4 @@
-package mysql
+package sqlite
 
 import (
     "context"
@@ -6,11 +6,10 @@ import (
     "time"
 
     "github.com/sony/sonyflake"
-    "gorm.io/driver/mysql"
-    "gorm.io/gorm"
-
     "golang-template/config"
     "golang-template/models"
+    "gorm.io/driver/sqlite"
+    "gorm.io/gorm"
 )
 
 type DB struct {
@@ -19,12 +18,11 @@ type DB struct {
 }
 
 func Init(globalConfig *config.GlobalConfig) (*DB, error) {
-    cfg := globalConfig.MySQLConfig
+    cfg := globalConfig.SQLiteConfig
     if cfg.Open == 0 {
         return nil, nil
     }
-    dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?parseTime=true&loc=Local", cfg.User, cfg.Password, cfg.Host, cfg.Port, cfg.DB)
-    db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+    db, err := gorm.Open(sqlite.Open(cfg.DB), &gorm.Config{})
     if err != nil {
         return nil, fmt.Errorf("failed to connect to db err:%v", err)
     }

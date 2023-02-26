@@ -1,18 +1,22 @@
 package app
 
 import (
+    "github.com/sony/sonyflake"
     "golang-template/client/user"
     "golang-template/config"
     "golang-template/dao/mysql"
     "golang-template/dao/redis"
+    "golang-template/dao/sqlite"
     "golang-template/logger"
 )
 
 type App struct {
     GlobalConfig *config.GlobalConfig
-    DB           *mysql.DB
+    MySQL        *mysql.DB
     Redis        *redis.Client
     UserHandler  *user.Client
+    SQLite       *sqlite.DB
+    IDGenerator  *sonyflake.Sonyflake
 }
 
 func panicError(err error) {
@@ -28,16 +32,17 @@ func MustNew() *App {
     _, err = logger.Init(appConfig, appConfig.Mode)
     panicError(err)
 
-    db, err := mysql.Init(appConfig)
+    mysqlClient, err := mysql.Init(appConfig)
     panicError(err)
-    defer db.Close()
+    defer mysqlClient.Close()
 
     redisClient, err := redis.Init(appConfig)
     panicError(err)
     defer redisClient.Close()
+
     return &App{
         GlobalConfig: appConfig,
-        DB:           db,
+        MySQL:        mysqlClient,
         Redis:        redisClient,
     }
 }

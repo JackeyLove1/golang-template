@@ -21,10 +21,13 @@ type Client struct {
 // Init 初始化连接
 func Init(globalConfig *config.GlobalConfig) (*Client, error) {
     cfg := globalConfig.RedisConfig
+    if cfg.Open == 0 {
+        return nil, nil
+    }
     client := redis.NewClient(&redis.Options{
         Addr:         fmt.Sprintf("%s:%d", cfg.Host, globalConfig.Port),
         Password:     cfg.Password, // no password set
-        DB:           cfg.DB,       // use default DB
+        DB:           cfg.DB,       // use default MySQl
         PoolSize:     cfg.PoolSize,
         MinIdleConns: cfg.MinIdleConns,
     })

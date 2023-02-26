@@ -2,14 +2,21 @@ mode: "dev"
 port: 8081
 
 log:
+  open: 0
   level: "debug"
   filename: "./log/bluebell.log"
   max_size: 1000
   max_age: 3600
   max_backups: 5
 
+sqlite:
+  open: 0
+  db: sqlite.db
+  max_open_conns: 100
+  max_idle_conns: 20
 
 mysql:
+  open: 0
   host: 127.0.0.1
   port: 13306
   user: root
@@ -19,6 +26,7 @@ mysql:
   max_idle_conns: 20
 
 redis:
+  open: 0
   host: 127.0.0.1
   port: 16379
   db: 0

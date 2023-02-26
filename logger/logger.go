@@ -21,6 +21,9 @@ var lg *zap.Logger
 // Init 初始化lg
 func Init(globalConfig *config.GlobalConfig, mode string) (*zap.Logger, error) {
     cfg := globalConfig.LogConfig
+    if cfg.Open == 0 {
+        return nil, nil
+    }
     writeSyncer := getLogWriter(cfg.Filename, cfg.MaxSize, cfg.MaxBackups, cfg.MaxAge)
     encoder := getEncoder()
     var l = new(zapcore.Level)
